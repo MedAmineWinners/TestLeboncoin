@@ -33,7 +33,7 @@ class HomeTableViewCell: UITableViewCell {
     let titlePriceStackView = UIStackView()
     
     let itemImageView: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 170, height: 170))
+        let image = UIImageView()
         image.image = UIImage(named: "leboncoinBanner")
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -80,10 +80,12 @@ class HomeTableViewCell: UITableViewCell {
     var item: Item! {
         didSet {
             titleLabel.text = item.title
-            categoryLabel.text = "category"
             priceLabel.text = "\(item.price ?? 0.0)€"
             urgentLabel.isHidden = !item.is_urgent!
-            itemImageView.load(url: URL(string: item.images_url?.small ?? "")!)
+            itemImageView.image = UIImage(named: "leboncoinBanner")
+            if let url = URL(string: item.images_url?.small ?? "") {
+                itemImageView.load(url: url)
+            }
         }
     }
     
@@ -154,5 +156,9 @@ class HomeTableViewCell: UITableViewCell {
         itemImageView.heightAnchor.constraint(equalToConstant: 160).isActive = true
         itemImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
         itemImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    override func prepareForReuse() {
+        itemImageView.image = nil
     }
 }

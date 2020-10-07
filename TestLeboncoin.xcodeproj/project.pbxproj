@@ -23,6 +23,14 @@
 		7B0B00AC252CCEE900E2C8BD /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B00AB252CCEE900E2C8BD /* HomeTableViewCell.swift */; };
 		7B0B00BB252D22CE00E2C8BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B00BA252D22CE00E2C8BD /* Extensions.swift */; };
 		7BCCEDD7252DE75D00568758 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDD6252DE75D00568758 /* Category.swift */; };
+		7BCCEDE3252DF14100568758 /* FilterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDE2252DF14100568758 /* FilterProtocols.swift */; };
+		7BCCEDE8252DF54E00568758 /* FilterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDE7252DF54E00568758 /* FilterRouter.swift */; };
+		7BCCEDED252DF58A00568758 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDEC252DF58A00568758 /* FilterViewController.swift */; };
+		7BCCEDF2252DF59C00568758 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDF1252DF59C00568758 /* FilterView.swift */; };
+		7BCCEDF7252DF64B00568758 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDF6252DF64B00568758 /* FilterPresenter.swift */; };
+		7BCCEDFC252DF6E200568758 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDFB252DF6E200568758 /* FilterInteractor.swift */; };
+		7BCCEE02252DFCE600568758 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE01252DFCE600568758 /* RequestHandler.swift */; };
+		7BCCEE0A252E059F00568758 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE09252E059F00568758 /* FilterTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +73,14 @@
 		7B0B00AB252CCEE900E2C8BD /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		7B0B00BA252D22CE00E2C8BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7BCCEDD6252DE75D00568758 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		7BCCEDE2252DF14100568758 /* FilterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProtocols.swift; sourceTree = "<group>"; };
+		7BCCEDE7252DF54E00568758 /* FilterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRouter.swift; sourceTree = "<group>"; };
+		7BCCEDEC252DF58A00568758 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		7BCCEDF1252DF59C00568758 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7BCCEDF6252DF64B00568758 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
+		7BCCEDFB252DF6E200568758 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
+		7BCCEE01252DFCE600568758 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
+		7BCCEE09252E059F00568758 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +131,7 @@
 		7B0B003D252C9C3300E2C8BD /* TestLeboncoin */ = {
 			isa = PBXGroup;
 			children = (
+				7BCCEE00252DFCC100568758 /* RequestHandler */,
 				7B0B00B9252D22B600E2C8BD /* Utils */,
 				7B0B007A252CA62300E2C8BD /* Modules */,
 				7B0B003E252C9C3300E2C8BD /* AppDelegate.swift */,
@@ -178,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				7B0B009C252CA93900E2C8BD /* Item.swift */,
-				7BCCEDD6252DE75D00568758 /* Category.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -228,8 +244,72 @@
 		7BCCEDDB252DEFC200568758 /* FilterModules */ = {
 			isa = PBXGroup;
 			children = (
+				7BCCEDE1252DF08A00568758 /* Router */,
+				7BCCEDE0252DF08300568758 /* Entity */,
+				7BCCEDDF252DF07B00568758 /* Presenter */,
+				7BCCEDDE252DF06900568758 /* Interactor */,
+				7BCCEDDD252DF06100568758 /* View */,
+				7BCCEDDC252DF05600568758 /* Protocols */,
 			);
 			path = FilterModules;
+			sourceTree = "<group>";
+		};
+		7BCCEDDC252DF05600568758 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDE2252DF14100568758 /* FilterProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7BCCEDDD252DF06100568758 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDEC252DF58A00568758 /* FilterViewController.swift */,
+				7BCCEDF1252DF59C00568758 /* FilterView.swift */,
+				7BCCEE09252E059F00568758 /* FilterTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BCCEDDE252DF06900568758 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDFB252DF6E200568758 /* FilterInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7BCCEDDF252DF07B00568758 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDF6252DF64B00568758 /* FilterPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7BCCEDE0252DF08300568758 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDD6252DE75D00568758 /* Category.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		7BCCEDE1252DF08A00568758 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEDE7252DF54E00568758 /* FilterRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7BCCEE00252DFCC100568758 /* RequestHandler */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEE01252DFCE600568758 /* RequestHandler.swift */,
+			);
+			path = RequestHandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,15 +441,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BCCEDF7252DF64B00568758 /* FilterPresenter.swift in Sources */,
+				7BCCEDE3252DF14100568758 /* FilterProtocols.swift in Sources */,
+				7BCCEDFC252DF6E200568758 /* FilterInteractor.swift in Sources */,
 				7B0B008F252CA7FD00E2C8BD /* HomeRouter.swift in Sources */,
+				7BCCEDE8252DF54E00568758 /* FilterRouter.swift in Sources */,
+				7BCCEE02252DFCE600568758 /* RequestHandler.swift in Sources */,
 				7B0B003F252C9C3300E2C8BD /* AppDelegate.swift in Sources */,
 				7B0B00A7252CC45900E2C8BD /* HomeView.swift in Sources */,
 				7B0B0041252C9C3300E2C8BD /* SceneDelegate.swift in Sources */,
+				7BCCEE0A252E059F00568758 /* FilterTableViewCell.swift in Sources */,
 				7B0B00AC252CCEE900E2C8BD /* HomeTableViewCell.swift in Sources */,
 				7B0B009D252CA93900E2C8BD /* Item.swift in Sources */,
 				7B0B00A2252CBF9F00E2C8BD /* HomeViewController.swift in Sources */,
+				7BCCEDED252DF58A00568758 /* FilterViewController.swift in Sources */,
 				7B0B0095252CA81F00E2C8BD /* HomeProtocols.swift in Sources */,
 				7B0B008A252CA7E100E2C8BD /* HomePresenter.swift in Sources */,
+				7BCCEDF2252DF59C00568758 /* FilterView.swift in Sources */,
 				7B0B00BB252D22CE00E2C8BD /* Extensions.swift in Sources */,
 				7B0B0085252CA7D200E2C8BD /* HomeInteractor.swift in Sources */,
 				7BCCEDD7252DE75D00568758 /* Category.swift in Sources */,

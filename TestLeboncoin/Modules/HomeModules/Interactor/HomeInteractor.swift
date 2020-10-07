@@ -11,11 +11,12 @@ class HomeInteractor: PresenterToInteractorProtocol {
     var presenter: InteractorToPresenterProtocol?
     
     func fetchItems() {
-        fetchItems { result in
+        let requestHandler = RequestHandler()
+        requestHandler.fetch(url: .items) { result in
             switch result {
             case .success(let result):
                 if let items = try? JSONDecoder().decode([Item].self, from: result) {
-                    self.fetchCategories { result in
+                    requestHandler.fetch(url: .categories) { result in
                         switch result {
                         case .success(let result):
                             if let categories = try? JSONDecoder().decode([Category].self, from: result){
@@ -33,7 +34,8 @@ class HomeInteractor: PresenterToInteractorProtocol {
     }
     
     func fetchCategories() {
-        fetchCategories { result in
+        let requestHandler = RequestHandler()
+        requestHandler.fetch(url: .categories) { result in
             switch result {
             case .success(let result):
                 if let categories = try? JSONDecoder().decode([Category].self, from: result){
@@ -45,38 +47,7 @@ class HomeInteractor: PresenterToInteractorProtocol {
             }
         }
     }
-    
-    func fetchItems(completion: @escaping (Result<Data, Error>) -> Void) {
-        let url = URL(string: "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json")
-        URLSession.shared.dataTask(with: url!){ data, response, error in
-            if let data = data {
-                completion(.success(data))
-                return
-            }
-            if error != nil {
-                completion(.failure(error!))
-                return
-            }
-            completion(.failure(NetworkingError.internalError))
-        }.resume()
-    }
-    
-    func fetchCategories(completion: @escaping (Result<Data, Error>) -> Void) {
-        let url = URL(string: "https://raw.githubusercontent.com/leboncoin/paperclip/master/categories.json")
-        URLSession.shared.dataTask(with: url!){ data, response, error in
-            if let data = data {
-                completion(.success(data))
-                return
-            }
-            if error != nil {
-                completion(.failure(error!))
-                return
-            }
-            completion(.failure(NetworkingError.internalError))
-        }.resume()
-    }
 }
-
 
 enum NetworkingError: Error {
     case internalError
