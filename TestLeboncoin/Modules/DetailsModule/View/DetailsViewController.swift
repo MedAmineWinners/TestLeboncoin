@@ -10,7 +10,7 @@ import UIKit
 class DetailsViewController: UIViewController {
 
     var item: Item!
-    var category: Category!
+    var category: ItemCategory!
     var detailsView = DetailsView()
     
     override func loadView() {

@@ -19,7 +19,7 @@ class FilterPresenter: FilterViewToPresenterProtocol {
 }
 
 extension FilterPresenter: FilterInteractorToPresenterProtocol {
-    func categoriesFetchedWithSuccess(categories: [Category]) {
+    func categoriesFetchedWithSuccess(categories: [ItemCategory]) {
         
     }
     

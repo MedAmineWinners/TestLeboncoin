@@ -8,17 +8,15 @@
 import Foundation
 
 class HomeInteractor: PresenterToInteractorProtocol {
-
-    var presenter: InteractorToPresenterProtocol?
     
+    var presenter: InteractorToPresenterProtocol?
+    var requestHandler = RequestHandler()
     func fetchItems() {
-        let requestHandler = RequestHandler()
-        requestHandler.fetch(url: .items) { result in
+        requestHandler.loadData(from: .items) { result in
             switch result {
             case .success(let result):
-                if let items = try? JSONDecoder().decode([Item].self, from: result) {
-                    self.presenter?.itemsFetchedWithSuccess(items: items)
-                }
+                let items: [Item] = result.decode()
+                self.presenter?.itemsFetchedWithSuccess(items: items)
             case .failure(let error):
                 self.presenter?.itemsFetchedWithFailure(error: error.localizedDescription)
             }
@@ -26,15 +24,13 @@ class HomeInteractor: PresenterToInteractorProtocol {
     }
     
     func fetchCategories() {
-        let requestHandler = RequestHandler()
-        requestHandler.fetch(url: .categories) { result in
+        requestHandler.loadData(from: .categories) { result in
             switch result {
             case .success(let result):
-                if let categories = try? JSONDecoder().decode([Category].self, from: result) {
-                    self.presenter?.categoriesFetchedWithSuccess(categories: categories)
-                }
+                let categories: [ItemCategory] = result.decode()
+                self.presenter?.categoriesFetchedWithSuccess(categories: categories)
             case .failure(let error):
-                self.presenter?.itemsFetchedWithFailure(error: error.localizedDescription)
+                self.presenter?.categoriesFetchedWithFailure(error: error.localizedDescription)
             }
         }
     }

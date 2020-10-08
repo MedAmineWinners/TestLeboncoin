@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var presenter: ViewToPresenterProtocol?
     var items = [Item]()
     var filteredItems = [Item]()
-    var categories = [Category]()
+    var categories = [ItemCategory]()
     
     override func loadView() {
         homeView.tableView.delegate = self
@@ -75,7 +75,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.present(navigationController, animated: true, completion: nil)
     }
     
-    func showItems(for category: Category) {
+    func showItems(for category: ItemCategory) {
         self.filteredItems = self.items.filter( {$0.category_id == category.id})
         homeView.tableView.reloadDataAnimated()
         homeView.filterStackView.isHidden = false
@@ -84,18 +84,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 extension HomeViewController: PresenterToViewProtocol {
-    func setCategories(categories: [Category]) {
+    func setCategories(categories: [ItemCategory]) {
         self.categories = categories
     }
     
     func showItems(items: [Item]) {
-        self.items = items
+        self.items = sortItems(items: items)
         DispatchQueue.main.async {
             self.homeView.tableView.reloadDataAnimated()
         }
     }
     
     func showError(error: String) {
-        print("")
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func sortItems(items: [Item]) -> [Item] {
+        var sortedItems = items.sorted(by:  { ($0.creation_date?.stringToDate())! > ($1.creation_date?.stringToDate())! })
+        sortedItems.sort { $0.is_urgent! && !$1.is_urgent! }
+        return sortedItems
     }
 }

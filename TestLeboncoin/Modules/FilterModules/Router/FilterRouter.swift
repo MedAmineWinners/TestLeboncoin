@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 class FilterRouter: FilterPresenterToRouterProtocol {
  
-    static func createModule(categories: [Category]?) -> UIViewController {
+    static func createModule(categories: [ItemCategory]?) -> UIViewController {
         let view = FilterViewController()
         let presenter: FilterViewToPresenterProtocol & FilterInteractorToPresenterProtocol = FilterPresenter()
         let interactor: FilterPresenterToInteractorProtocol = FilterInteractor()
         let router: FilterPresenterToRouterProtocol = FilterRouter()
         view.presenter = presenter
-        view.categories = categories ?? [Category]()
+        view.categories = categories ?? [ItemCategory]()
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor

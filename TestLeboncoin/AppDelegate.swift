@@ -11,14 +11,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-   // var window: UIWindow?
+    var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        let liveNews = HomeRouter.createModule()
-//        
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.rootViewController = liveNews
-//        window?.makeKeyAndVisible()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+
+        let homeViewController = HomeRouter.createModule()
+        let homeNavigationController = UINavigationController(rootViewController: homeViewController)
+        window?.rootViewController = homeNavigationController
         return true
     }
 

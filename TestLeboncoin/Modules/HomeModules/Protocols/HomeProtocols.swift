@@ -10,14 +10,14 @@ import UIKit
 
 protocol PresenterToViewProtocol: class{
     func showItems(items: [Item])
-    func setCategories(categories: [Category])
+    func setCategories(categories: [ItemCategory])
     func showError(error: String)
 }
 
 protocol InteractorToPresenterProtocol: class {
     func itemsFetchedWithSuccess(items: [Item])
     func itemsFetchedWithFailure(error: String)
-    func categoriesFetchedWithSuccess(categories: [Category])
+    func categoriesFetchedWithSuccess(categories: [ItemCategory])
     func categoriesFetchedWithFailure(error: String)
 }
 

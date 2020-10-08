@@ -25,18 +25,16 @@ class HomePresenter: ViewToPresenterProtocol {
 
 extension HomePresenter: InteractorToPresenterProtocol {
     func itemsFetchedWithSuccess(items: [Item]) {
-        var sortedItems = items.sorted(by:  { ($0.creation_date?.stringToDate())! > ($1.creation_date?.stringToDate())! })
-        sortedItems.sort { $0.is_urgent! && !$1.is_urgent! }
-        view?.showItems(items: sortedItems)
+        view?.showItems(items: items)
     }
     
-    func categoriesFetchedWithSuccess(categories: [Category]) {
+    func categoriesFetchedWithSuccess(categories: [ItemCategory]) {
         view?.setCategories(categories: categories)
         interactor?.fetchItems()
     }
     
     func categoriesFetchedWithFailure(error: String) {
-        
+        view?.showError(error: error)
     }
         
     func itemsFetchedWithFailure(error: String) {

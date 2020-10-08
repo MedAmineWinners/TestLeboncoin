@@ -49,7 +49,7 @@ class FilterTableViewCell: UITableViewCell {
     
 
     
-    var category: Category! {
+    var category: ItemCategory! {
         didSet {
             categoryLabel.text = category.name
             categoryImageView.image = UIImage(named: "\(category.id!)")

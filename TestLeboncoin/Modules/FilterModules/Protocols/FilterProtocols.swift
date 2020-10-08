@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 protocol FilterPresenterToViewProtocol: class{
-    func showCategories(categories: [Category])
+    func showCategories(categories: [ItemCategory])
     func showError(error: String)
 }
 
 protocol FilterInteractorToPresenterProtocol: class {
-    func categoriesFetchedWithSuccess(categories: [Category])
+    func categoriesFetchedWithSuccess(categories: [ItemCategory])
     func categoriesFetchedWithFailure(error: String)
 }
 
@@ -30,5 +30,5 @@ protocol FilterViewToPresenterProtocol: class {
 }
 
 protocol FilterPresenterToRouterProtocol {
-    static func createModule(categories: [Category]?) -> UIViewController
+    static func createModule(categories: [ItemCategory]?) -> UIViewController
 }

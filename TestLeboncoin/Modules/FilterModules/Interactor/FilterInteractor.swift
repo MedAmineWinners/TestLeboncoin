@@ -8,15 +8,13 @@
 import Foundation
 class FilterInteractor: FilterPresenterToInteractorProtocol {
     var presenter: FilterInteractorToPresenterProtocol?
-    
+    var requestHandler = RequestHandler()
     func fetchCategories() {
-        let requestHandler = RequestHandler()
-        requestHandler.fetch(url: .categories) { result in
+        requestHandler.loadData(from: .categories) { result in
             switch result {
             case .success(let result):
-                if let categories = try? JSONDecoder().decode([Category].self, from: result){
-                    self.presenter?.categoriesFetchedWithSuccess(categories: categories)
-                }
+                let categories: [ItemCategory] = result.decode()
+                self.presenter?.categoriesFetchedWithSuccess(categories: categories)
                 
             case .failure(let error):
                 self.presenter?.categoriesFetchedWithFailure(error: error.localizedDescription)
