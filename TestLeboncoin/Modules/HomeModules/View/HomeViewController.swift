@@ -53,9 +53,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 170
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = filteredItems.count > 0 ? filteredItems[indexPath.row] :  items[indexPath.row]
+        let category = categories.first(where: {$0.id == item.category_id})
+        let detailsViewController = DetailsRouter.createModule(item: item, category: category!)
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     @objc func clearFilterList() {
         self.filteredItems = [Item]()
-        homeView.stackView.isHidden = true
+        homeView.filterStackView.isHidden = true
         homeView.tableView.reloadDataAnimated()
     }
     
@@ -70,7 +78,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func showItems(for category: Category) {
         self.filteredItems = self.items.filter( {$0.category_id == category.id})
         homeView.tableView.reloadDataAnimated()
-        homeView.stackView.isHidden = false
+        homeView.filterStackView.isHidden = false
         homeView.categoryLabel.text = category.name
     }
 }

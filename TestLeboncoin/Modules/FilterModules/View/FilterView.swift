@@ -14,7 +14,6 @@ class FilterView: UIView {
         self.backgroundColor = .white
         createSubviews()
         tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: "FilterTableViewCell")
-        //tableView.separatorStyle = .none
     }
 
     required init?(coder aDecoder: NSCoder) {

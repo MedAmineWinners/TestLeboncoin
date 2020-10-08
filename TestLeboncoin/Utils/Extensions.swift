@@ -38,6 +38,10 @@ extension UIImageView {
             }
         }
     }
+    
+    func loadWithAnimation(url: URL) {
+        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {self.load(url: url)}, completion: nil)
+    }
 }
 
 extension String {
@@ -46,6 +50,14 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let date = dateFormatter.date(from: self)!
         return date
+    }
+    
+    func stringToFormattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM yyyy"
+        formatter.locale = Locale(identifier: "fr")
+        
+        return formatter.string(from: self.stringToDate())
     }
 }
 

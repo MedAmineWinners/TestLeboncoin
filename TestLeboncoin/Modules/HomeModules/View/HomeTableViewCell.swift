@@ -27,10 +27,39 @@ class HomeTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    let view = UIView()
-    let parentStackView = UIStackView()
-    let stackView = UIStackView()
-    let titlePriceStackView = UIStackView()
+    let view: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.cornerRadius(radius: 8)
+        return view
+    }()
+    
+    let parentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    let infosStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 8
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    let titlePriceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
     
     let itemImageView: UIImageView = {
         let image = UIImageView()
@@ -69,7 +98,7 @@ class HomeTableViewCell: UITableViewCell {
     
     let urgentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Urgent Item"
+        label.text = "Article Urgent"
         label.textColor = .red
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +113,7 @@ class HomeTableViewCell: UITableViewCell {
             urgentLabel.isHidden = !item.is_urgent!
             itemImageView.image = UIImage(named: "leboncoinBanner")
             if let url = URL(string: item.images_url?.small ?? "") {
-                itemImageView.load(url: url)
+                itemImageView.loadWithAnimation(url: url)
             }
         }
     }
@@ -98,32 +127,24 @@ class HomeTableViewCell: UITableViewCell {
     func setupView() {
         addBaseView(view: view)
         addParentStackView(parentStackView: parentStackView)
-        addStackView(stackView: stackView)
+        addStackView(stackView: infosStackView)
         addTitlePriceStackView(titlePriceStackView: titlePriceStackView)
         
-        stackView.addArrangedSubview(titlePriceStackView)
-        stackView.addArrangedSubview(categoryLabel)
-        stackView.addArrangedSubview(urgentLabel)
-        setStackViewItemsConstraints()
+        infosStackView.addArrangedSubview(titlePriceStackView)
+        infosStackView.addArrangedSubview(categoryLabel)
+        infosStackView.addArrangedSubview(urgentLabel)
+        setInfosStackViewItemsConstraints()
     }
     
     func addBaseView(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
         self.addSubview(view)
         view.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         view.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         view.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         view.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        view.cornerRadius(radius: 8)
     }
     
     func addParentStackView(parentStackView: UIStackView) {
-        parentStackView.translatesAutoresizingMaskIntoConstraints = false
-        parentStackView.spacing = 10
-        parentStackView.axis = .horizontal
-        parentStackView.distribution = .fill
-        parentStackView.alignment = .center
         view.addSubview(parentStackView)
         parentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         parentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -132,23 +153,17 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func addStackView(stackView: UIStackView) {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 8
-        stackView.axis = .vertical
         parentStackView.addArrangedSubview(itemImageView)
         parentStackView.addArrangedSubview(stackView)
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
     }
     
     func addTitlePriceStackView(titlePriceStackView: UIStackView) {
-        titlePriceStackView.axis = .vertical
-        titlePriceStackView.spacing = 8
-        titlePriceStackView.distribution = .fillProportionally
         titlePriceStackView.addArrangedSubview(titleLabel)
         titlePriceStackView.addArrangedSubview(priceLabel)
     }
     
-    func setStackViewItemsConstraints() {
+    func setInfosStackViewItemsConstraints() {
         urgentLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: 160).isActive = true
         itemImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true

@@ -31,6 +31,10 @@
 		7BCCEDFC252DF6E200568758 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEDFB252DF6E200568758 /* FilterInteractor.swift */; };
 		7BCCEE02252DFCE600568758 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE01252DFCE600568758 /* RequestHandler.swift */; };
 		7BCCEE0A252E059F00568758 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE09252E059F00568758 /* FilterTableViewCell.swift */; };
+		7BCCEE15252E920A00568758 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE14252E920800568758 /* DetailsView.swift */; };
+		7BCCEE1D252E922C00568758 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE1C252E922C00568758 /* DetailsViewController.swift */; };
+		7BCCEE27252E925400568758 /* DetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE26252E925400568758 /* DetailsRouter.swift */; };
+		7BCCEE2D252E927000568758 /* DetailsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCCEE2C252E927000568758 /* DetailsProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		7BCCEDFB252DF6E200568758 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		7BCCEE01252DFCE600568758 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		7BCCEE09252E059F00568758 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		7BCCEE14252E920800568758 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		7BCCEE1C252E922C00568758 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		7BCCEE26252E925400568758 /* DetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRouter.swift; sourceTree = "<group>"; };
+		7BCCEE2C252E927000568758 /* DetailsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +172,7 @@
 		7B0B007A252CA62300E2C8BD /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7BCCEE0E252E90D000568758 /* DetailsModule */,
 				7BCCEDDB252DEFC200568758 /* FilterModules */,
 				7B0B007B252CA62C00E2C8BD /* HomeModules */,
 			);
@@ -312,6 +321,65 @@
 			path = RequestHandler;
 			sourceTree = "<group>";
 		};
+		7BCCEE0E252E90D000568758 /* DetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEE2B252E925F00568758 /* Protocols */,
+				7BCCEE13252E910900568758 /* View */,
+				7BCCEE12252E90FE00568758 /* Presenter */,
+				7BCCEE11252E90F600568758 /* Interactor */,
+				7BCCEE10252E90EE00568758 /* Entity */,
+				7BCCEE0F252E90DF00568758 /* Router */,
+			);
+			path = DetailsModule;
+			sourceTree = "<group>";
+		};
+		7BCCEE0F252E90DF00568758 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEE26252E925400568758 /* DetailsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7BCCEE10252E90EE00568758 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		7BCCEE11252E90F600568758 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7BCCEE12252E90FE00568758 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7BCCEE13252E910900568758 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEE14252E920800568758 /* DetailsView.swift */,
+				7BCCEE1C252E922C00568758 /* DetailsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BCCEE2B252E925F00568758 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7BCCEE2C252E927000568758 /* DetailsProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -444,17 +512,21 @@
 				7BCCEDF7252DF64B00568758 /* FilterPresenter.swift in Sources */,
 				7BCCEDE3252DF14100568758 /* FilterProtocols.swift in Sources */,
 				7BCCEDFC252DF6E200568758 /* FilterInteractor.swift in Sources */,
+				7BCCEE1D252E922C00568758 /* DetailsViewController.swift in Sources */,
 				7B0B008F252CA7FD00E2C8BD /* HomeRouter.swift in Sources */,
 				7BCCEDE8252DF54E00568758 /* FilterRouter.swift in Sources */,
 				7BCCEE02252DFCE600568758 /* RequestHandler.swift in Sources */,
 				7B0B003F252C9C3300E2C8BD /* AppDelegate.swift in Sources */,
 				7B0B00A7252CC45900E2C8BD /* HomeView.swift in Sources */,
+				7BCCEE15252E920A00568758 /* DetailsView.swift in Sources */,
 				7B0B0041252C9C3300E2C8BD /* SceneDelegate.swift in Sources */,
 				7BCCEE0A252E059F00568758 /* FilterTableViewCell.swift in Sources */,
+				7BCCEE27252E925400568758 /* DetailsRouter.swift in Sources */,
 				7B0B00AC252CCEE900E2C8BD /* HomeTableViewCell.swift in Sources */,
 				7B0B009D252CA93900E2C8BD /* Item.swift in Sources */,
 				7B0B00A2252CBF9F00E2C8BD /* HomeViewController.swift in Sources */,
 				7BCCEDED252DF58A00568758 /* FilterViewController.swift in Sources */,
+				7BCCEE2D252E927000568758 /* DetailsProtocols.swift in Sources */,
 				7B0B0095252CA81F00E2C8BD /* HomeProtocols.swift in Sources */,
 				7B0B008A252CA7E100E2C8BD /* HomePresenter.swift in Sources */,
 				7BCCEDF2252DF59C00568758 /* FilterView.swift in Sources */,
