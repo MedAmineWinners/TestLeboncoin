@@ -14,7 +14,6 @@ class FilterRouter: FilterPresenterToRouterProtocol {
         let presenter: FilterViewToPresenterProtocol & FilterInteractorToPresenterProtocol = FilterPresenter()
         let interactor: FilterPresenterToInteractorProtocol = FilterInteractor()
         let router: FilterPresenterToRouterProtocol = FilterRouter()
-
         view.presenter = presenter
         view.categories = categories ?? [Category]()
         presenter.view = view

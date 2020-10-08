@@ -99,8 +99,8 @@ class HomeTableViewCell: UITableViewCell {
         addBaseView(view: view)
         addParentStackView(parentStackView: parentStackView)
         addStackView(stackView: stackView)
-       addTitlePriceStackView(titlePriceStackView: titlePriceStackView)
-       
+        addTitlePriceStackView(titlePriceStackView: titlePriceStackView)
+        
         stackView.addArrangedSubview(titlePriceStackView)
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(urgentLabel)
@@ -137,7 +137,6 @@ class HomeTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         parentStackView.addArrangedSubview(itemImageView)
         parentStackView.addArrangedSubview(stackView)
-        
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
     }
     
@@ -150,9 +149,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func setStackViewItemsConstraints() {
-
         urgentLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-   
         itemImageView.heightAnchor.constraint(equalToConstant: 160).isActive = true
         itemImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
         itemImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

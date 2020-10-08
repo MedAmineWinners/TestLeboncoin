@@ -7,16 +7,18 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterItemsProtocol {
     
     var homeView = HomeView()
     var presenter: ViewToPresenterProtocol?
     var items = [Item]()
+    var filteredItems = [Item]()
     var categories = [Category]()
     
     override func loadView() {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
+        homeView.closeButton.addTarget(self, action: #selector(clearFilterList), for: .touchUpInside)
         view = homeView
     }
     
@@ -29,13 +31,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        if filteredItems.count == 0 {
+            return items.count
+        }
+        return filteredItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as! HomeTableViewCell
-        cell.item = items[indexPath.row]
-        cell.category = categories.first(where: {$0.id == items[indexPath.row].category_id})
+        if filteredItems.count == 0 {
+            cell.item = items[indexPath.row]
+            cell.category = categories.first(where: {$0.id == items[indexPath.row].category_id})
+        } else {
+            cell.item = filteredItems[indexPath.row]
+            cell.category = categories.first(where: {$0.id == filteredItems[indexPath.row].category_id})
+        }
         return cell
     }
     
@@ -43,26 +53,37 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 170
     }
     
+    @objc func clearFilterList() {
+        self.filteredItems = [Item]()
+        homeView.stackView.isHidden = true
+        homeView.tableView.reloadDataAnimated()
+    }
+    
     @objc func showFiltersList() {
+        self.filteredItems = [Item]()
         let filterController = FilterRouter.createModule(categories: categories)
+        (filterController as! FilterViewController).delegate = self
         let navigationController = UINavigationController(rootViewController: filterController)
         self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func showItems(for category: Category) {
+        self.filteredItems = self.items.filter( {$0.category_id == category.id})
+        homeView.tableView.reloadDataAnimated()
+        homeView.stackView.isHidden = false
+        homeView.categoryLabel.text = category.name
     }
 }
 
 extension HomeViewController: PresenterToViewProtocol {
-    func showCategories(categories: [Category]) {
-        print("")
+    func setCategories(categories: [Category]) {
+        self.categories = categories
     }
     
-    func showItems(items: [Item], categories: [Category]) {
-        var sortedItems = items.sorted(by:  { ($0.creation_date?.stringToDate())! > ($1.creation_date?.stringToDate())! })
-        sortedItems.sort { $0.is_urgent! && !$1.is_urgent! }
-        self.items = sortedItems
-        self.categories = categories
-        
+    func showItems(items: [Item]) {
+        self.items = items
         DispatchQueue.main.async {
-            self.homeView.tableView.reloadData()
+            self.homeView.tableView.reloadDataAnimated()
         }
     }
     

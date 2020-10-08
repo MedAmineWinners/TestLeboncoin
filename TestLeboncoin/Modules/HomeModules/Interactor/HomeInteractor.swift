@@ -8,6 +8,7 @@
 import Foundation
 
 class HomeInteractor: PresenterToInteractorProtocol {
+
     var presenter: InteractorToPresenterProtocol?
     
     func fetchItems() {
@@ -16,16 +17,7 @@ class HomeInteractor: PresenterToInteractorProtocol {
             switch result {
             case .success(let result):
                 if let items = try? JSONDecoder().decode([Item].self, from: result) {
-                    requestHandler.fetch(url: .categories) { result in
-                        switch result {
-                        case .success(let result):
-                            if let categories = try? JSONDecoder().decode([Category].self, from: result){
-                                self.presenter?.itemsFetchedWithSuccess(items: items, categories: categories)
-                            }
-                        case .failure(let error):
-                            self.presenter?.itemsFetchedWithFailure(error: error.localizedDescription)
-                        }
-                    }
+                    self.presenter?.itemsFetchedWithSuccess(items: items)
                 }
             case .failure(let error):
                 self.presenter?.itemsFetchedWithFailure(error: error.localizedDescription)
@@ -38,12 +30,11 @@ class HomeInteractor: PresenterToInteractorProtocol {
         requestHandler.fetch(url: .categories) { result in
             switch result {
             case .success(let result):
-                if let categories = try? JSONDecoder().decode([Category].self, from: result){
+                if let categories = try? JSONDecoder().decode([Category].self, from: result) {
                     self.presenter?.categoriesFetchedWithSuccess(categories: categories)
                 }
-                
             case .failure(let error):
-                self.presenter?.categoriesFetchedWithFailure(error: error.localizedDescription)
+                self.presenter?.itemsFetchedWithFailure(error: error.localizedDescription)
             }
         }
     }

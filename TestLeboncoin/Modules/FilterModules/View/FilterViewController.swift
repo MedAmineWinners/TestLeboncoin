@@ -7,12 +7,16 @@
 
 import UIKit
 
+protocol FilterItemsProtocol {
+    func showItems(for category: Category)
+}
+
 class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var presenter: FilterViewToPresenterProtocol?
     var categories = [Category]()
     var filterView = FilterView()
-    
+    var delegate: FilterItemsProtocol!
     
     override func loadView() {
         filterView.tableView.delegate = self
@@ -42,6 +46,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate.showItems(for: categories[indexPath.row])
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

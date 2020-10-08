@@ -48,3 +48,9 @@ extension String {
         return date
     }
 }
+
+extension UITableView {
+    func reloadDataAnimated() {
+        UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations: {self.reloadData()}, completion: nil)
+    }
+}
