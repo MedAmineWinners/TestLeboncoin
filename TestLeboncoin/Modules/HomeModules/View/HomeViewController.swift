@@ -105,7 +105,8 @@ extension HomeViewController: PresenterToViewProtocol {
     }
     
     func sortItems(items: [Item]) -> [Item] {
-        var sortedItems = items.sorted(by:  { ($0.creation_date.stringToDate()) > ($1.creation_date.stringToDate()) })
+        let dateFormatter = DateFormatter()
+        var sortedItems = items.sorted(by:  { ($0.creation_date.stringToDate(with: dateFormatter)) > ($1.creation_date.stringToDate(with: dateFormatter)) })
         sortedItems.sort { $0.is_urgent && !$1.is_urgent }
         return sortedItems
     }

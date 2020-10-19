@@ -61,18 +61,17 @@ extension UIImageView {
 }
 
 extension String {
-    func stringToDate() -> Date {
-        let dateFormatter = DateFormatter()
+    func stringToDate(with dateFormatter: DateFormatter) -> Date {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let date = dateFormatter.date(from: self)
         return date ?? Date()
     }
     
-    func stringToFormattedDate() -> String? {
+    func stringToFormattedDate(with dateFormatter: DateFormatter) -> String? {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
         formatter.locale = Locale(identifier: "fr")
-        return formatter.string(from: self.stringToDate())
+        return formatter.string(from: self.stringToDate(with: dateFormatter))
     }
 }
 

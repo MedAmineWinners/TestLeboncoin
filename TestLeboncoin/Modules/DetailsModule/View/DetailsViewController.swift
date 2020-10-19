@@ -26,7 +26,7 @@ class DetailsViewController: UIViewController {
             detailsView.titleLabel.text = item.title
             detailsView.priceLabel.text = "\(item.price ?? 0.0)€"
             detailsView.categoryLabel.text = category.name
-            detailsView.dateLabel.text = item.creation_date.stringToFormattedDate()
+            detailsView.dateLabel.text = item.creation_date.stringToFormattedDate(with: DateFormatter())
             detailsView.urgentLabel.isHidden = !item.is_urgent
             detailsView.descriptionLabel.text = item.description
         }
