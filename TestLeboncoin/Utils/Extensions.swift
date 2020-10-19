@@ -15,7 +15,34 @@ extension UIView {
     }
 }
 
+
+class CustomUIImageView: UIImageView {
+    let imageCache = NSCache<NSString, AnyObject>()
+    var imageURL: URL?
+    func loadImage(url: URL) {
+        imageURL = url
+        image = nil
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) as? UIImage {
+            image = cachedImage
+            return
+        }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    if self?.imageURL == url {
+                        DispatchQueue.main.async {
+                            self?.image = image
+                        }
+                    }
+                    self?.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                }
+            }
+        }
+    }
+}
+
 extension UIImageView {
+    
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
@@ -64,4 +91,3 @@ extension Data {
         return loaded
     }
 }
-

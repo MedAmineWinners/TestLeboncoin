@@ -61,8 +61,8 @@ class HomeTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    let itemImageView: UIImageView = {
-        let image = UIImageView()
+    let itemImageView: CustomUIImageView = {
+        let image = CustomUIImageView()
         image.image = UIImage(named: "leboncoinBanner")
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +113,7 @@ class HomeTableViewCell: UITableViewCell {
             urgentLabel.isHidden = !item.is_urgent!
             itemImageView.image = UIImage(named: "leboncoinBanner")
             if let url = URL(string: item.images_url?.small ?? "") {
-                itemImageView.loadWithAnimation(url: url)
+                itemImageView.loadImage(url: url)
             }
         }
     }
