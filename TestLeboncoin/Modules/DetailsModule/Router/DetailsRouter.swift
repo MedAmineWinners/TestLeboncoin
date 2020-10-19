@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 class DetailsRouter {
-    class func createModule(item: Item, category: ItemCategory) -> UIViewController {
+    class func createModule(articleViewModel: ArticleViewModel) -> UIViewController {
         let view = DetailsViewController()
-        view.item = item
-        view.category = category
+        view.articleViewModel = articleViewModel
         return view
     }
 }

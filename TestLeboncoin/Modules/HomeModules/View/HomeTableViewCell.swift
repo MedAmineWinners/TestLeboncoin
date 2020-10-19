@@ -27,6 +27,21 @@ class HomeTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    var articleViewModel: ArticleViewModel? {
+        didSet {
+            if let articleViewModel = articleViewModel {
+                titleLabel.text = articleViewModel.title
+                priceLabel.text = articleViewModel.price
+                urgentLabel.isHidden = !articleViewModel.isUrgent
+                itemImageView.image = UIImage(named: "leboncoinBanner")
+                if let url = articleViewModel.smallImage {
+                    itemImageView.loadImage(url: url)
+                }
+                categoryLabel.text = articleViewModel.categoryName
+            }
+        }
+    }
+    
     let view: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -104,29 +119,6 @@ class HomeTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    
-    var item: Item? {
-        didSet {
-            if let item = item {
-                titleLabel.text = item.title
-                priceLabel.text = "\(item.price ?? 0.0)€"
-                urgentLabel.isHidden = !item.is_urgent
-                itemImageView.image = UIImage(named: "leboncoinBanner")
-                if let url = URL(string: item.images_url?.small ?? "") {
-                    itemImageView.loadImage(url: url)
-                }
-            }
-        }
-    }
-    
-    var category: ItemCategory? {
-        didSet {
-            if let category = category {
-                categoryLabel.text = category.name
-            }
-        }
-    }
     
     func setupView() {
         addBaseView(view: view)

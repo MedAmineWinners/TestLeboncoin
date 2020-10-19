@@ -11,9 +11,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var homeView = HomeView()
     var presenter: ViewToPresenterProtocol?
-    var items = [Item]()
-    var filteredItems = [Item]()
     var categories = [ItemCategory]()
+    var articleListViewModel = ArticleListViewModel()
+    var filteredArticlesViewModel = [ArticleViewModel]()
     
     override func loadView() {
         homeView.tableView.delegate = self
@@ -31,20 +31,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filteredItems.count == 0 {
-            return items.count
+        if articleListViewModel.isFiltered {
+            return filteredArticlesViewModel.count
         }
-        return filteredItems.count
+        return articleListViewModel.articlesViewModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as! HomeTableViewCell
-        if filteredItems.count == 0 {
-            cell.item = items[indexPath.row]
-            cell.category = categories.first(where: {$0.id == items[indexPath.row].category_id})
+        if articleListViewModel.isFiltered {
+            cell.articleViewModel = filteredArticlesViewModel[indexPath.row]
         } else {
-            cell.item = filteredItems[indexPath.row]
-            cell.category = categories.first(where: {$0.id == filteredItems[indexPath.row].category_id})
+            cell.articleViewModel = articleListViewModel.articlesViewModel[indexPath.row]
         }
         return cell
     }
@@ -54,22 +52,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = filteredItems.count > 0 ? filteredItems[indexPath.row] :  items[indexPath.row]
-        if let category = categories.first(where: {$0.id == item.category_id}) {
-            let detailsViewController = DetailsRouter.createModule(item: item, category: category)
-            self.navigationController?.pushViewController(detailsViewController, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        let articleViewModel = articleListViewModel.isFiltered ? filteredArticlesViewModel[indexPath.row] :  articleListViewModel.articlesViewModel[indexPath.row]
+        let detailsViewController = DetailsRouter.createModule(articleViewModel: articleViewModel)
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func clearFilterList() {
-        self.filteredItems = [Item]()
+        self.articleListViewModel.isFiltered = false
         homeView.filterStackView.isHidden = true
         homeView.tableView.reloadDataAnimated()
     }
     
     @objc func showFiltersList() {
-        self.filteredItems = [Item]()
         let filterController = FilterRouter.createModule(categories: categories)
         (filterController as! FilterViewController).delegate = self
         let navigationController = UINavigationController(rootViewController: filterController)
@@ -77,7 +72,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func showItems(for category: ItemCategory) {
-        self.filteredItems = self.items.filter( {$0.category_id == category.id})
+        filteredArticlesViewModel = self.articleListViewModel.articlesViewModel.filter( {$0.categoryName == category.name})
+        self.articleListViewModel.isFiltered = true
         homeView.tableView.reloadDataAnimated()
         homeView.filterStackView.isHidden = false
         homeView.categoryLabel.text = category.name
@@ -90,7 +86,12 @@ extension HomeViewController: PresenterToViewProtocol {
     }
     
     func showItems(items: [Item]) {
-        self.items = sortItems(items: items)
+        let articlesViewModel = items.map { item in
+            ArticleViewModel(item: item, category: self.categories.first(where: { category in
+                category.id == item.category_id
+            })
+            )}
+        self.articleListViewModel.articlesViewModel = self.articleListViewModel.sortItems(articlesViewModel: articlesViewModel)
         DispatchQueue.main.async {
             self.homeView.tableView.reloadDataAnimated()
         }
@@ -102,12 +103,5 @@ extension HomeViewController: PresenterToViewProtocol {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
-    }
-    
-    func sortItems(items: [Item]) -> [Item] {
-        let dateFormatter = DateFormatter()
-        var sortedItems = items.sorted(by:  { ($0.creation_date.stringToDate(with: dateFormatter)) > ($1.creation_date.stringToDate(with: dateFormatter)) })
-        sortedItems.sort { $0.is_urgent && !$1.is_urgent }
-        return sortedItems
     }
 }

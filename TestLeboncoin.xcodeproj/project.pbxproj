@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33E5041A253DD7A500AC1DA1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E50419253DD7A500AC1DA1 /* HomeViewModel.swift */; };
 		7B0B003F252C9C3300E2C8BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B003E252C9C3300E2C8BD /* AppDelegate.swift */; };
 		7B0B0041252C9C3300E2C8BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B0040252C9C3300E2C8BD /* SceneDelegate.swift */; };
 		7B0B0048252C9C3500E2C8BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B0047252C9C3500E2C8BD /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		33E50419253DD7A500AC1DA1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7B0B003B252C9C3300E2C8BD /* TestLeboncoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestLeboncoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0B003E252C9C3300E2C8BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B0B0040252C9C3300E2C8BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				7B0B00A1252CBF9F00E2C8BD /* HomeViewController.swift */,
 				7B0B00A6252CC45900E2C8BD /* HomeView.swift */,
 				7B0B00AB252CCEE900E2C8BD /* HomeTableViewCell.swift */,
+				33E50419253DD7A500AC1DA1 /* HomeViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				7BCCEDF7252DF64B00568758 /* FilterPresenter.swift in Sources */,
 				7BCCEDE3252DF14100568758 /* FilterProtocols.swift in Sources */,
 				7BCCEDFC252DF6E200568758 /* FilterInteractor.swift in Sources */,
+				33E5041A253DD7A500AC1DA1 /* HomeViewModel.swift in Sources */,
 				7BCCEE1D252E922C00568758 /* DetailsViewController.swift in Sources */,
 				7B0B008F252CA7FD00E2C8BD /* HomeRouter.swift in Sources */,
 				7BCCEDE8252DF54E00568758 /* FilterRouter.swift in Sources */,

@@ -9,8 +9,7 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
-    var item: Item?
-    var category: ItemCategory?
+    var articleViewModel: ArticleViewModel?
     var detailsView = DetailsView()
     
     override func loadView() {
@@ -19,16 +18,16 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let item = item, let category = category {
-            if let url = URL(string: item.images_url?.small ?? "") {
+        if let articleViewModel = articleViewModel {
+            if let url = articleViewModel.bigImage {
                 detailsView.itemImageView.load(url: url)
             }
-            detailsView.titleLabel.text = item.title
-            detailsView.priceLabel.text = "\(item.price ?? 0.0)€"
-            detailsView.categoryLabel.text = category.name
-            detailsView.dateLabel.text = item.creation_date.stringToFormattedDate(with: DateFormatter())
-            detailsView.urgentLabel.isHidden = !item.is_urgent
-            detailsView.descriptionLabel.text = item.description
+            detailsView.titleLabel.text = articleViewModel.title
+            detailsView.priceLabel.text = articleViewModel.price
+            detailsView.categoryLabel.text = articleViewModel.categoryName
+            detailsView.dateLabel.text = articleViewModel.creationDate.stringToFormattedDate(with: DateFormatter())
+            detailsView.urgentLabel.isHidden = !articleViewModel.isUrgent
+            detailsView.descriptionLabel.text = articleViewModel.description
         }
     }
 }

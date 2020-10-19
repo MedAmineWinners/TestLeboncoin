@@ -35,9 +35,3 @@ class HomeInteractor: PresenterToInteractorProtocol {
         }
     }
 }
-
-enum NetworkingError: Error {
-    case internalError
-    case domainError
-    case decodingError
-}

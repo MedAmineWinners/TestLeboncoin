@@ -37,8 +37,13 @@ class TestHomeViewController: XCTestCase {
         }
         items = itemExpectedData.decode()
         categories = categoriesExpectedData.decode()
-        homeViewController.items = items
         homeViewController.categories = categories
+        let articlesViewModel = items.map { item in
+            ArticleViewModel(item: item, category: self.categories.first(where: { category in
+                category.id == item.category_id
+            })
+            )}
+        homeViewController.articleListViewModel.articlesViewModel = articlesViewModel
     }
 
     override func tearDown() {
@@ -47,8 +52,8 @@ class TestHomeViewController: XCTestCase {
     
     func testShowItemsForCategory(){
         homeViewController.showItems(for: categories[0])
-        XCTAssertTrue(homeViewController.filteredItems.count > 0)
+        XCTAssertTrue(homeViewController.filteredArticlesViewModel.count > 0)
         XCTAssertFalse(homeViewController.homeView.filterStackView.isHidden)
-        XCTAssertTrue(homeViewController.filteredItems.allSatisfy{$0.category_id == categories[0].id})
+        XCTAssertTrue(homeViewController.filteredArticlesViewModel.allSatisfy{$0.categoryName == categories[0].name})
     }
 }

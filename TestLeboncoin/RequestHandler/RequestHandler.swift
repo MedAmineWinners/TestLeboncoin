@@ -52,3 +52,9 @@ enum SearchPaths: String {
     case items = "/leboncoin/paperclip/master/listing.json"
     case categories = "/leboncoin/paperclip/master/categories.json"
 }
+
+enum NetworkingError: Error {
+    case internalError
+    case domainError
+    case decodingError
+}
