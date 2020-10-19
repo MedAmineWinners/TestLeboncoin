@@ -9,20 +9,31 @@ import XCTest
 @testable import TestLeboncoin
 
 class TestHomeViewController: XCTestCase {
-    var requestHandler: RequestHandler!
+    var requestHandler: RequestHandler?
     let session = NetworkSessionMock()
     let homeViewController = HomeViewController()
     var items = [Item]()
     var categories = [ItemCategory]()
     override func setUp() {
         super.setUp()
-        let itemPath = "file://"+Bundle(for: type(of: self)).path(forResource: "Items", ofType: "json")!
-        guard let itemExpectedData = try? Data(contentsOf: URL(string: itemPath)!) else {
-            fatalError("No data for url \(itemPath)")
+        
+        guard let bundle = Bundle(for: type(of: self)).path(forResource: "Items", ofType: "json") else {
+            fatalError("wrong bundle")
         }
-        let categoriesPath = "file://"+Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json")!
-        guard let categoriesExpectedData = try? Data(contentsOf: URL(string: categoriesPath)!) else {
-            fatalError("No data for url \(categoriesPath)")
+        guard let url = URL(string: "file://"+bundle) else{
+            fatalError("wrong url")
+        }
+        guard let itemExpectedData = try? Data(contentsOf: url) else {
+            fatalError("No data for url \(url)")
+        }
+        guard let categoryBundle = Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json") else {
+            fatalError("wrong category bundle")
+        }
+        guard let categoryUrl = URL(string: "file://"+categoryBundle) else{
+            fatalError("wrong category url")
+        }
+        guard let categoriesExpectedData = try? Data(contentsOf: categoryUrl) else {
+            fatalError("No data for url \(categoryUrl)")
         }
         items = itemExpectedData.decode()
         categories = categoriesExpectedData.decode()

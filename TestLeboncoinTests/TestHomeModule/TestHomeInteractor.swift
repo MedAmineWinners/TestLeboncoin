@@ -9,7 +9,7 @@ import XCTest
 @testable import TestLeboncoin
 
 class TestHomeInteractor: XCTestCase {
-    var requestHandler: RequestHandler!
+    var requestHandler: RequestHandler?
     let session = NetworkSessionMock()
     let homeInteractor = HomeInteractor()
     let presenter = HomePresenterMock()
@@ -17,7 +17,7 @@ class TestHomeInteractor: XCTestCase {
         super.setUp()
         requestHandler = RequestHandler(session: session)
         homeInteractor.presenter = presenter
-        homeInteractor.requestHandler = requestHandler
+        homeInteractor.requestHandler = requestHandler!
     }
 
     override func tearDown() {
@@ -26,9 +26,14 @@ class TestHomeInteractor: XCTestCase {
     
     func testFetchItems() {
 
-        let itemPath = "file://"+Bundle(for: type(of: self)).path(forResource: "Items", ofType: "json")!
-        guard let itemExpectedData = try? Data(contentsOf: URL(string: itemPath)!) else {
-            fatalError("No data for url \(itemPath)")
+        guard let bundle = Bundle(for: type(of: self)).path(forResource: "Items", ofType: "json") else {
+            fatalError("wrong bundle")
+        }
+        guard let url = URL(string: "file://"+bundle) else{
+            fatalError("wrong url")
+        }
+        guard let itemExpectedData = try? Data(contentsOf: url) else {
+            fatalError("No data for url \(url)")
         }
         //Test fetchItems with success
         session.data = itemExpectedData
@@ -42,10 +47,15 @@ class TestHomeInteractor: XCTestCase {
         homeInteractor.fetchItems()
         XCTAssertTrue(presenter.itemFetchedWithFailureCalled)
         
-        let categoriesPath = "file://"+Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json")!
-        
-        guard let categoriesExpectedData = try? Data(contentsOf: URL(string: categoriesPath)!) else {
-            fatalError("No data for url \(categoriesPath)")
+
+        guard let categoryBundle = Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json") else {
+            fatalError("wrong category bundle")
+        }
+        guard let categoryUrl = URL(string: "file://"+categoryBundle) else{
+            fatalError("wrong category url")
+        }
+        guard let categoriesExpectedData = try? Data(contentsOf: categoryUrl) else {
+            fatalError("No data for url \(categoryUrl)")
         }
         //Test fetchCategories with success
         session.data = categoriesExpectedData

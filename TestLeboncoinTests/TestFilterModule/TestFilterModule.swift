@@ -9,7 +9,7 @@ import XCTest
 @testable import TestLeboncoin
 
 class TestFilterInteractor: XCTestCase {
-    var requestHandler: RequestHandler!
+    var requestHandler: RequestHandler?
     let session = NetworkSessionMock()
     let filterInteractor = FilterInteractor()
     let presenter = FilterPresenterMock()
@@ -17,7 +17,7 @@ class TestFilterInteractor: XCTestCase {
         super.setUp()
         requestHandler = RequestHandler(session: session)
         filterInteractor.presenter = presenter
-        filterInteractor.requestHandler = requestHandler
+        filterInteractor.requestHandler = requestHandler!
     }
 
     override func tearDown() {
@@ -26,10 +26,14 @@ class TestFilterInteractor: XCTestCase {
     
     func testFetchCategories() {
         
-        let categoriesPath = "file://"+Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json")!
-        
-        guard let categoriesExpectedData = try? Data(contentsOf: URL(string: categoriesPath)!) else {
-            fatalError("No data for url \(categoriesPath)")
+        guard let categoryBundle = Bundle(for: type(of: self)).path(forResource: "Categories", ofType: "json") else {
+            fatalError("wrong category bundle")
+        }
+        guard let categoryUrl = URL(string: "file://"+categoryBundle) else{
+            fatalError("wrong category url")
+        }
+        guard let categoriesExpectedData = try? Data(contentsOf: categoryUrl) else {
+            fatalError("No data for url \(categoryUrl)")
         }
         //Test fetchCategories with success
         session.data = categoriesExpectedData

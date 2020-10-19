@@ -29,19 +29,22 @@ class RequestHandler {
     }
     
     func loadData(from url: SearchPaths, completion: @escaping (Result<Data, Error>) -> Void) {
-        let url = getURL(matching: url)
-        session.loadData(from: url) { (data, error) in
-            let result = data.map(Result.success) ?? .failure(error ?? NetworkingError.internalError)
-            completion(result)
+        if let url = getURL(matching: url) {
+            session.loadData(from: url) { (data, error) in
+                let result = data.map(Result.success) ?? .failure(error ?? NetworkingError.internalError)
+                completion(result)
+            }
+        }else {
+            completion(.failure(NetworkingError.domainError))
         }
     }
     
-    private func getURL(matching searchPath: SearchPaths) -> URL {
+    private func getURL(matching searchPath: SearchPaths) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "raw.githubusercontent.com"
         components.path = searchPath.rawValue
-        return components.url!
+        return components.url
     }
 }
 

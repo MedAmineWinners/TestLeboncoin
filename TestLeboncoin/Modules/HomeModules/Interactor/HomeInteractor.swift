@@ -38,11 +38,6 @@ class HomeInteractor: PresenterToInteractorProtocol {
 
 enum NetworkingError: Error {
     case internalError
-    
-    var localizedDescription: String {
-        switch self {
-        case .internalError:
-            return "An error occured, please try later"
-        }
-    }
+    case domainError
+    case decodingError
 }

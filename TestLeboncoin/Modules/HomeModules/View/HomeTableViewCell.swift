@@ -106,21 +106,25 @@ class HomeTableViewCell: UITableViewCell {
     }()
     
     
-    var item: Item! {
+    var item: Item? {
         didSet {
-            titleLabel.text = item.title
-            priceLabel.text = "\(item.price ?? 0.0)€"
-            urgentLabel.isHidden = !item.is_urgent!
-            itemImageView.image = UIImage(named: "leboncoinBanner")
-            if let url = URL(string: item.images_url?.small ?? "") {
-                itemImageView.loadImage(url: url)
+            if let item = item {
+                titleLabel.text = item.title
+                priceLabel.text = "\(item.price ?? 0.0)€"
+                urgentLabel.isHidden = !item.is_urgent
+                itemImageView.image = UIImage(named: "leboncoinBanner")
+                if let url = URL(string: item.images_url?.small ?? "") {
+                    itemImageView.loadImage(url: url)
+                }
             }
         }
     }
     
-    var category: ItemCategory! {
+    var category: ItemCategory? {
         didSet {
-            categoryLabel.text = category.name
+            if let category = category {
+                categoryLabel.text = category.name
+            }
         }
     }
     

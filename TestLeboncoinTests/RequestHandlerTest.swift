@@ -10,7 +10,7 @@ import XCTest
 
 class RequestHandlerTests: XCTestCase {
     
-    var requestHandler: RequestHandler!
+    var requestHandler: RequestHandler?
     let session = NetworkSessionMock()
    
     override func setUp() {
@@ -28,6 +28,9 @@ class RequestHandlerTests: XCTestCase {
         
         session.data = expectedData
         var actualData: Data?
+        guard let requestHandler = requestHandler else {
+            fatalError("no request Handler")
+        }
         requestHandler.loadData(from: .categories) { result in
             switch result {
             case .success(let data):

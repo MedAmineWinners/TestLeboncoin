@@ -16,7 +16,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var presenter: FilterViewToPresenterProtocol?
     var categories = [ItemCategory]()
     var filterView = FilterView()
-    var delegate: FilterItemsProtocol!
+    var delegate: FilterItemsProtocol?
     
     override func loadView() {
         filterView.tableView.delegate = self
@@ -51,7 +51,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate.showItems(for: categories[indexPath.row])
+        self.delegate?.showItems(for: categories[indexPath.row])
         self.dismiss(animated: true, completion: nil)
     }
     

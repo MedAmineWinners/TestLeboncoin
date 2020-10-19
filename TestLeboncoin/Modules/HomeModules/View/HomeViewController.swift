@@ -55,10 +55,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = filteredItems.count > 0 ? filteredItems[indexPath.row] :  items[indexPath.row]
-        let category = categories.first(where: {$0.id == item.category_id})
-        let detailsViewController = DetailsRouter.createModule(item: item, category: category!)
-        self.navigationController?.pushViewController(detailsViewController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
+        if let category = categories.first(where: {$0.id == item.category_id}) {
+            let detailsViewController = DetailsRouter.createModule(item: item, category: category)
+            self.navigationController?.pushViewController(detailsViewController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     @objc func clearFilterList() {
@@ -104,8 +105,8 @@ extension HomeViewController: PresenterToViewProtocol {
     }
     
     func sortItems(items: [Item]) -> [Item] {
-        var sortedItems = items.sorted(by:  { ($0.creation_date?.stringToDate())! > ($1.creation_date?.stringToDate())! })
-        sortedItems.sort { $0.is_urgent! && !$1.is_urgent! }
+        var sortedItems = items.sorted(by:  { ($0.creation_date.stringToDate()) > ($1.creation_date.stringToDate()) })
+        sortedItems.sort { $0.is_urgent && !$1.is_urgent }
         return sortedItems
     }
 }

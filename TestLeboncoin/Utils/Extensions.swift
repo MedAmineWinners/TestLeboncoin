@@ -64,11 +64,11 @@ extension String {
     func stringToDate() -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let date = dateFormatter.date(from: self)!
-        return date
+        let date = dateFormatter.date(from: self)
+        return date ?? Date()
     }
     
-    func stringToFormattedDate() -> String {
+    func stringToFormattedDate() -> String? {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
         formatter.locale = Locale(identifier: "fr")

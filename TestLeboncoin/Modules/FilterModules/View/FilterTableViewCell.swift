@@ -8,15 +8,15 @@
 import UIKit
 
 class FilterTableViewCell: UITableViewCell {
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,12 +47,14 @@ class FilterTableViewCell: UITableViewCell {
         return label
     }()
     
-
     
-    var category: ItemCategory! {
+    
+    var category: ItemCategory? {
         didSet {
-            categoryLabel.text = category.name
-            categoryImageView.image = UIImage(named: "\(category.id!)")
+            if let category = category {
+                categoryLabel.text = category.name
+                categoryImageView.image = UIImage(named: "\(category.id)")
+            }
         }
     }
     
@@ -71,6 +73,6 @@ class FilterTableViewCell: UITableViewCell {
         stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         stackView.spacing = 20
         stackView.axis = .horizontal
-       
+        
     }
 }
